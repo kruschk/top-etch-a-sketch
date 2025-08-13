@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link href="./style.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <script defer src="./javascript.js"></script>
+        <title>Etch-a-Sketch</title>
+    </head>
+    <body>
+        <h1>Etch-a-Sketch</h1>
+        <div class="inputs">
+        <label for="edgeCount">Tiles along edge:</label>
+        <input id="edgeCount"
+               max="100"
+               min="1"
+               name="edgeCount"
+               required
+               placeholder="1&ndash;100"
+               step="1"
+               type="number"
+               value="16"/>
+        </div>
+        <div id="screen">
+        </div>
+    </body>
+</html>
