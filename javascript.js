@@ -1,28 +1,41 @@
 "use strict";
 
 const screen = document.querySelector("#screen");
+const tilesAlongEdge = document.querySelector("#tilesAlongEdge");
+
+const computeTileEdgeLength = count => `${100 / count}%`;
+
+function generateRandomRGB() {
+    const generateColourComponent = () => Math.floor(256 * Math.random());
+    const red = generateColourComponent();
+    const green = generateColourComponent();
+    const blue = generateColourComponent();
+    return `rgb(${red}, ${green}, ${blue})`;
+}
+
 screen.addEventListener("mouseover", (event) => {
     if (event.target.id !== "screen") {
-        event.target.style.backgroundColor = "black";
+        const style = event.target.style;
+        // Progressive darkening
+        style.opacity = Math.min(+style.opacity + 0.1, 1).toString();
+        style.backgroundColor = generateRandomRGB();
     }
 });
 
-const input = document.querySelector("input");
-input.addEventListener("change", (event) => {
-    if (!input.validity.valid) {
-        input.value = "16";
+tilesAlongEdge.addEventListener("change", (event) => {
+    if (!tilesAlongEdge.validity.valid) {
+        tilesAlongEdge.value = "4";
     }
 
     while (screen.firstChild) {
         screen.removeChild(screen.firstChild);
     }
 
-    for (let i = 0; i < input.value ** 2; i++) {
+    for (let i = 0; i < tilesAlongEdge.value ** 2; i++) {
         const tile = document.createElement("div");
-        tile.style.backgroundColor = "grey";
-        tile.style.height = `${100/input.value}%`
-        tile.style.width = `${100/input.value}%`
+        tile.style.height = computeTileEdgeLength(tilesAlongEdge.value);
+        tile.style.width = computeTileEdgeLength(tilesAlongEdge.value);
         screen.appendChild(tile);
     }
 });
-input.dispatchEvent(new Event("change"));
+tilesAlongEdge.dispatchEvent(new Event("change"));
